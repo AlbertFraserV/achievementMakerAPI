@@ -4,7 +4,7 @@ class UserController extends BaseController
     /**
      * "/user/list" Endpoint - Get list of users
      */
-    public function listAction($user_key = null, $user_name = null)
+    public function returnUsers()
     {
         $strErrorDesc = '';
         $requestMethod = $_SERVER["REQUEST_METHOD"];
@@ -12,37 +12,38 @@ class UserController extends BaseController
  
         if (strtoupper($requestMethod) == 'GET') {
             try {
-                if($user_name == null && $user_key == null)
+                if(!isset($_GET['user_name']) && !isset($_GET['user_key']))
                 {
                     $userModel = new UserModel();
                     $intLimit = 10;
-                    if (isset($arrQueryStringParams['limit']) && $arrQueryStringParams['limit']) {
-                        $intLimit = $arrQueryStringParams['limit'];
+                    if(isset($_GET['limit']))
+                    {
+                        $intLimit = $_GET['limit'];
                     }
-    
                     $arrUsers = $userModel->getUsers($intLimit);
                     $responseData = json_encode($arrUsers);
                 }
 
-                else if($user_name != null && $user_key == null)
+                else if(isset($_GET['user_name']) && !isset($_GET['user_key']))
                 {
-                    $userModel = new UserModel($user_name);
-                    $arrUsers = $userModel->getUsersByName($user_name);
+                    $userModel = new UserModel();
+                    $arrUsers = $userModel->getUsersByName($_GET['user_name']);
                     $responseData = json_encode($arrUsers);
                 }
 
-                else if ($user_name == null && $user_key != null)
+                else if (!isset($_GET['user_name']) && isset($_GET['user_key']))
                 {
-                    $userModel = new UserModel($user_key);
-                    $arrUsers = $userModel->getUsersByKey($user_key);
+                    $userModel = new UserModel();
+                    $arrUsers = $userModel->getUsersByKey($_GET['user_key']);
                     $responseData = json_encode($arrUsers);
                 }
 
-                else if ($user_name == null && $user_key != null)
+                else if (isset($_GET['user_name']) && isset($_GET['user_key']))
                 {
-                    $userModel = new UserModel($user_key);
-                    $arrUsers = $userModel->getUsersByKey($user_key);
-                    $responseData = json_encode(array_unshif(array("message" => "Both user_key and user_name were passed so the user_name was ignored."), $arrUsers));
+                    $userModel = new UserModel();
+                    $arrUsers = $userModel->getUsersByKey($_GET['user_key']);
+                    // $arrUsers["message"] = "Both user_key and user_name were passed so the user_name was ignored.";
+                    $responseData = json_encode($arrUsers);
                 }
 
                 else
