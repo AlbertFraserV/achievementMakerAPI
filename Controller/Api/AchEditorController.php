@@ -1,4 +1,5 @@
 <?php
+//Endpoints for the GUI Achievement Editor application.
 class AchEditorController extends BaseController
 {
     //Returns a list of games based upon the query parameters.
