@@ -1,9 +1,8 @@
 <?php
 class GameSessionController extends BaseController
 {
-    /**
-     * "/user/list" Endpoint - Get list of users
-     */
+    //Returns game, achievement, and user information for the achievement app so users can play games and unlock achievements.
+    //Endpoint: /api/gamesession.php
     public function gameSession()
     {
         $strErrorDesc = '';
