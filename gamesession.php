@@ -10,6 +10,7 @@ $uri = $_SERVER['REQUEST_URI'];
 $uri = explode( '?', $uri );
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
+//Query type MUST be passed.
 if(isset($_GET['query_type']) || isset($_POST['query_type']))
 {
     $gameSessionController = new GameSessionController();
