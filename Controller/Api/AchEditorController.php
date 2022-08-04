@@ -1,7 +1,7 @@
 <?php
 class AchEditorController extends BaseController
 {
-
+    //Returns a list of games based upon the query parameters.
     public function gameList()
     {
         $strErrorDesc = '';
@@ -56,6 +56,7 @@ class AchEditorController extends BaseController
         }
     }
 
+    //Return base memory address information for a specified game.
     public function gameMemAddrs()
     {
         $strErrorDesc = '';
