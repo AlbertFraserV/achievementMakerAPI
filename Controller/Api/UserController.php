@@ -1,9 +1,7 @@
 <?php
 class UserController extends BaseController
 {
-    /**
-     * "/user/list" Endpoint - Get list of users
-     */
+    //Returns a list of users: /api/users.php
     public function returnUsers()
     {
         $strErrorDesc = '';
