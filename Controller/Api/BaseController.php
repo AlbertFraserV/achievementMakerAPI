@@ -1,43 +1,13 @@
 <?php
 class BaseController
 {
-    /**
-     * __call magic method.
-     */
+    // __call magic method.
     public function __call($name, $arguments)
     {
         $this->sendOutput('', array('HTTP/1.1 404 Not Found'));
     }
  
-    /**
-     * Get URI elements.
-     * 
-     * @return array
-     */
-    protected function getUriSegments()
-    {
-        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $uri = explode( '/', $uri );
- 
-        return $uri;
-    }
- 
-    /**
-     * Get querystring params.
-     * 
-     * @return array
-     */
-    protected function getQueryStringParams()
-    {
-        return parse_str($_SERVER['QUERY_STRING'], $query);
-    }
- 
-    /**
-     * Send API output.
-     *
-     * @param mixed  $data
-     * @param string $httpHeader
-     */
+    //Send API output.
     protected function sendOutput($data, $httpHeaders=array())
     {
         header_remove('Set-Cookie');
@@ -52,6 +22,7 @@ class BaseController
         exit;
     }
 
+    //Sends 404 error. This can be expanded into more error codes later.
     public function sendErrorCode()
     {
         $this->sendOutput(
